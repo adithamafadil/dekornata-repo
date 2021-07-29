@@ -1,0 +1,17 @@
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  exclude:
+    - "**/api_config.dart"
+    - "**.config.dart"
+    - "**.freezed.dart"
+    - "**.g.dart"
+
+linter:
+  rules:
+    avoid_catching_errors: true
+    avoid_setters_without_getters: true
+    always_specify_types: false
+    avoid_print: true
+    curly_braces_in_flow_control_structures: true
+    unnecessary_statements: true
