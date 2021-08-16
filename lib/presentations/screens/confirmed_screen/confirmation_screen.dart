@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:dekornata_test/blocs/makeup/makeup_bloc.dart';
 import 'package:dekornata_test/presentations/widgets/custom_card.dart';
 import 'package:dekornata_test/presentations/widgets/cutom_buttons.dart';
@@ -49,7 +50,7 @@ class ConfirmationScreen extends StatelessWidget {
                         context
                             .read<MakeupBloc>()
                             .add(const MakeupEvent.clearCheckoutCart());
-                        Navigator.popUntil(context, (route) => route.isFirst);
+                        context.router.popUntil((route) => route.isFirst);
                       }),
                 )
               ],

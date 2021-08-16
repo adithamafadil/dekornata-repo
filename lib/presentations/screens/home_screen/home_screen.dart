@@ -1,10 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dekornata_test/blocs/makeup/makeup_bloc.dart';
 import 'package:dekornata_test/data/model/makeup/makeup_model.dart';
 import 'package:dekornata_test/data/model/poster/poster_model.dart';
-import 'package:dekornata_test/presentations/screens/cart_screen/cart_screen.dart';
-import 'package:dekornata_test/presentations/screens/detail_screen/detail_screen.dart';
+import 'package:dekornata_test/presentations/router/router.gr.dart';
 import 'package:dekornata_test/presentations/themes/colors.dart';
 import 'package:dekornata_test/presentations/widgets/custom_card.dart';
 import 'package:dekornata_test/presentations/widgets/cutom_buttons.dart';
@@ -18,48 +18,6 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Dekornata',
-          style: TextStyle(color: Colors.black),
-        ),
-        actions: [
-          Stack(
-            children: [
-              IconButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const CartScreen(),
-                      ));
-                },
-                icon: const Icon(Icons.shopping_cart_rounded),
-              ),
-              context.select((MakeupBloc bloc) => bloc.state.cart.length) == 0
-                  ? Container()
-                  : Positioned(
-                      right: 4,
-                      top: 0,
-                      child: Container(
-                        height: 20,
-                        width: 20,
-                        decoration: const BoxDecoration(
-                          color: Colors.red,
-                          shape: BoxShape.circle,
-                        ),
-                        child: Center(
-                          child: Text(context
-                              .select(
-                                  (MakeupBloc bloc) => bloc.state.cart.length)
-                              .toString()),
-                        ),
-                      ),
-                    ),
-            ],
-          )
-        ],
-      ),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(
@@ -128,13 +86,8 @@ class HomeScreen extends StatelessWidget {
                                     context
                                         .read<MakeupBloc>()
                                         .add(const MakeupEvent.resetQuantity());
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => DetailScreen(
-                                            product: product,
-                                          ),
-                                        ));
+                                    context.router.push(
+                                        DetailScreenRoute(product: product));
                                   },
                                   child: _buildCard(context, product)),
                             ),

@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dekornata_test/blocs/makeup/makeup_bloc.dart';
 import 'package:dekornata_test/data/model/makeup/makeup_model.dart';
@@ -31,7 +32,7 @@ class DetailScreen extends StatelessWidget {
               context.read<MakeupBloc>().add(
                     MakeupEvent.addToCart(product: product),
                   );
-              Navigator.pop(context);
+              context.router.pop();
             },
             style: ButtonStyle(
               backgroundColor:

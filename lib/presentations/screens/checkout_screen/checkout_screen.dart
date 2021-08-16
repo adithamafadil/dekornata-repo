@@ -1,5 +1,6 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:dekornata_test/blocs/makeup/makeup_bloc.dart';
-import 'package:dekornata_test/presentations/screens/confirmed_screen/confirmation_screen.dart';
+import 'package:dekornata_test/presentations/router/router.gr.dart';
 import 'package:dekornata_test/presentations/themes/colors.dart';
 import 'package:dekornata_test/presentations/widgets/custom_card.dart';
 import 'package:dekornata_test/presentations/widgets/cutom_buttons.dart';
@@ -20,30 +21,25 @@ class CheckoutScreen extends StatelessWidget {
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton:
-            context.select((MakeupBloc bloc) => bloc.state.cart.isEmpty)
-                ? null
-                : Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: SizedBox(
-                        width: double.infinity,
-                        child: CustomElevatedButton(
-                            child: const Padding(
-                              padding: EdgeInsets.all(16),
-                              child: Text('Bayar'),
-                            ),
-                            onPressed: () {
-                              context
-                                  .read<MakeupBloc>()
-                                  .add(const MakeupEvent.confirmCheckout());
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        const ConfirmationScreen(),
-                                  ));
-                            })),
-                  ),
+        floatingActionButton: context
+                .select((MakeupBloc bloc) => bloc.state.cart.isEmpty)
+            ? null
+            : Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: SizedBox(
+                    width: double.infinity,
+                    child: CustomElevatedButton(
+                        child: const Padding(
+                          padding: EdgeInsets.all(16),
+                          child: Text('Bayar'),
+                        ),
+                        onPressed: () {
+                          context
+                              .read<MakeupBloc>()
+                              .add(const MakeupEvent.confirmCheckout());
+                          context.router.push(const ConfirmationScreenRoute());
+                        })),
+              ),
         body: () {
           if (context.select((MakeupBloc bloc) => bloc.state.cart.isEmpty)) {
             return Padding(
@@ -62,7 +58,7 @@ class CheckoutScreen extends StatelessWidget {
                     CustomElevatedButton(
                         child: const Text('Kembali ke halaman utama'),
                         onPressed: () {
-                          Navigator.pop(context);
+                          context.router.pop();
                         })
                   ],
                 ),

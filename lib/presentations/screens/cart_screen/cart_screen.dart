@@ -1,7 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dekornata_test/blocs/makeup/makeup_bloc.dart';
 import 'package:dekornata_test/data/model/makeup/makeup_model.dart';
-import 'package:dekornata_test/presentations/screens/screens.dart';
+import 'package:dekornata_test/presentations/router/router.gr.dart';
 import 'package:dekornata_test/presentations/themes/colors.dart';
 import 'package:dekornata_test/presentations/widgets/custom_card.dart';
 import 'package:dekornata_test/presentations/widgets/cutom_buttons.dart';
@@ -21,6 +22,11 @@ class CartScreen extends StatelessWidget {
           'Keranjang',
           style: TextStyle(color: Colors.black),
         ),
+        leading: IconButton(
+            onPressed: () {
+              context.router.pop();
+            },
+            icon: const Icon(Icons.arrow_back)),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: BlocBuilder<MakeupBloc, MakeupState>(
@@ -60,11 +66,7 @@ class CartScreen extends StatelessWidget {
                     ),
                   ),
                   onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const CheckoutScreen(),
-                        ));
+                    context.router.push(const CheckoutScreenRoute());
                   },
                 ),
               ),
@@ -87,7 +89,7 @@ class CartScreen extends StatelessWidget {
                     CustomElevatedButton(
                         child: const Text('Kembali ke halaman utama'),
                         onPressed: () {
-                          Navigator.pop(context);
+                          context.router.pop();
                         })
                   ],
                 ),
@@ -216,7 +218,7 @@ class CartScreen extends StatelessWidget {
                                       CustomElevatedButton(
                                           child: const Text('Tidak'),
                                           onPressed: () {
-                                            Navigator.pop(context);
+                                            context.router.pop();
                                           }),
                                       OutlinedButton(
                                           onPressed: () {
@@ -224,10 +226,10 @@ class CartScreen extends StatelessWidget {
                                                 MakeupEvent.deleteFromCart(
                                                     index: index));
                                             if (state.cart.length == 1) {
-                                              Navigator.pop(context);
+                                              context.router.pop();
                                             }
 
-                                            Navigator.pop(context);
+                                            context.router.pop();
                                           },
                                           child: const Text('Hapus'))
                                     ],
